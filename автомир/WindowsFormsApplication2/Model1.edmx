@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="Model1StoreContainer">
+    <EntitySet Name="AccountsSet" EntityType="Model1.Store.AccountsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ParticipantInfoSet" EntityType="Model1.Store.ParticipantInfoSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="BICDirectoryEntrySet" EntityType="Model1.Store.BICDirectoryEntrySet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="BICDirectoryEntryAccounts" Association="Model1.Store.BICDirectoryEntryAccounts">
+      <End Role="BICDirectoryEntry" EntitySet="BICDirectoryEntrySet" />
+      <End Role="Accounts" EntitySet="AccountsSet" />
+    </AssociationSet>
+    <AssociationSet Name="ParticipantInfoBICDirectoryEntry" Association="Model1.Store.ParticipantInfoBICDirectoryEntry">
+      <End Role="ParticipantInfo" EntitySet="ParticipantInfoSet" />
+      <End Role="BICDirectoryEntry" EntitySet="BICDirectoryEntrySet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AccountsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RegulationAccountType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CK" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccountCBRBIC" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateIn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AccountStatus" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BICDirectoryEntryId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParticipantInfoSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NameP" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="CntrCd" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Rgn" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Ind" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BICDirectoryEntry_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BICDirectoryEntrySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BIC" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="BICDirectoryEntryAccounts">
+    <End Role="BICDirectoryEntry" Type="Model1.Store.BICDirectoryEntrySet" Multiplicity="1" />
+    <End Role="Accounts" Type="Model1.Store.AccountsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BICDirectoryEntry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Accounts">
+        <PropertyRef Name="BICDirectoryEntryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ParticipantInfoBICDirectoryEntry">
+    <End Role="ParticipantInfo" Type="Model1.Store.ParticipantInfoSet" Multiplicity="*" />
+    <End Role="BICDirectoryEntry" Type="Model1.Store.BICDirectoryEntrySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="BICDirectoryEntry">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ParticipantInfo">
+        <PropertyRef Name="BICDirectoryEntry_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model1" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="Model1Container" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountsSet" EntityType="Model1.Accounts" />
+          <EntitySet Name="ParticipantInfoSet" EntityType="Model1.ParticipantInfo" />
+          <EntitySet Name="BICDirectoryEntrySet" EntityType="Model1.BICDirectoryEntry" />
+          <AssociationSet Name="BICDirectoryEntryAccounts" Association="Model1.BICDirectoryEntryAccounts">
+            <End Role="BICDirectoryEntry" EntitySet="BICDirectoryEntrySet" />
+            <End Role="Accounts" EntitySet="AccountsSet" />
+          </AssociationSet>
+          <AssociationSet Name="ParticipantInfoBICDirectoryEntry" Association="Model1.ParticipantInfoBICDirectoryEntry">
+            <End Role="ParticipantInfo" EntitySet="ParticipantInfoSet" />
+            <End Role="BICDirectoryEntry" EntitySet="BICDirectoryEntrySet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Accounts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Account" Nullable="false" />
+          <Property Type="String" Name="RegulationAccountType" Nullable="false" />
+          <Property Type="String" Name="CK" Nullable="false" />
+          <Property Type="String" Name="AccountCBRBIC" Nullable="false" />
+          <Property Type="String" Name="DateIn" Nullable="false" />
+          <Property Type="String" Name="AccountStatus" Nullable="false" />
+          <Property Type="Int32" Name="BICDirectoryEntryId" Nullable="false" />
+          <NavigationProperty Name="BICDirectoryEntry" Relationship="Model1.BICDirectoryEntryAccounts" FromRole="Accounts" ToRole="BICDirectoryEntry" />
+        </EntityType>
+        <EntityType Name="ParticipantInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="NameP" />
+          <Property Type="String" Name="CntrCd" />
+          <Property Type="String" Name="Rgn" />
+          <Property Type="String" Name="Ind" />
+          <NavigationProperty Name="BICDirectoryEntry" Relationship="Model1.ParticipantInfoBICDirectoryEntry" FromRole="ParticipantInfo" ToRole="BICDirectoryEntry" />
+        </EntityType>
+        <EntityType Name="BICDirectoryEntry">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Accounts" Relationship="Model1.BICDirectoryEntryAccounts" FromRole="BICDirectoryEntry" ToRole="Accounts" />
+          <NavigationProperty Name="ParticipantInfo" Relationship="Model1.ParticipantInfoBICDirectoryEntry" FromRole="BICDirectoryEntry" ToRole="ParticipantInfo" />
+          <Property Type="String" Name="BIC" Nullable="false" />
+        </EntityType>
+        <Association Name="BICDirectoryEntryAccounts">
+          <End Type="Model1.BICDirectoryEntry" Role="BICDirectoryEntry" Multiplicity="1" />
+          <End Type="Model1.Accounts" Role="Accounts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BICDirectoryEntry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Accounts">
+              <PropertyRef Name="BICDirectoryEntryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ParticipantInfoBICDirectoryEntry">
+          <End Type="Model1.ParticipantInfo" Role="ParticipantInfo" Multiplicity="1" />
+          <End Type="Model1.BICDirectoryEntry" Role="BICDirectoryEntry" Multiplicity="1" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Model1StoreContainer" CdmEntityContainer="Model1Container">
+    <EntitySetMapping Name="AccountsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.Accounts)">
+        <MappingFragment StoreEntitySet="AccountsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="RegulationAccountType" ColumnName="RegulationAccountType" />
+          <ScalarProperty Name="CK" ColumnName="CK" />
+          <ScalarProperty Name="AccountCBRBIC" ColumnName="AccountCBRBIC" />
+          <ScalarProperty Name="DateIn" ColumnName="DateIn" />
+          <ScalarProperty Name="AccountStatus" ColumnName="AccountStatus" />
+          <ScalarProperty Name="BICDirectoryEntryId" ColumnName="BICDirectoryEntryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParticipantInfoSet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.ParticipantInfo)">
+        <MappingFragment StoreEntitySet="ParticipantInfoSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NameP" ColumnName="NameP" />
+          <ScalarProperty Name="CntrCd" ColumnName="CntrCd" />
+          <ScalarProperty Name="Rgn" ColumnName="Rgn" />
+          <ScalarProperty Name="Ind" ColumnName="Ind" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BICDirectoryEntrySet">
+      <EntityTypeMapping TypeName="IsTypeOf(Model1.BICDirectoryEntry)">
+        <MappingFragment StoreEntitySet="BICDirectoryEntrySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="BIC" ColumnName="BIC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ParticipantInfoBICDirectoryEntry" TypeName="Model1.ParticipantInfoBICDirectoryEntry" StoreEntitySet="ParticipantInfoSet">
+      <EndProperty Name="BICDirectoryEntry">
+        <ScalarProperty Name="Id" ColumnName="BICDirectoryEntry_Id" />
+      </EndProperty>
+      <EndProperty Name="ParticipantInfo">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model1" >
+        <EntityTypeShape EntityType="Model1.Accounts" Width="1.875" PointX="0.5" PointY="0.625" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model1.ParticipantInfo" Width="1.5" PointX="2.625" PointY="0.625" Height="1.9802864583333331" />
+        <EntityTypeShape EntityType="Model1.BICDirectoryEntry" Width="1.5" PointX="0.875" PointY="4" Height="1.7879850260416657" />
+        <AssociationConnector Association="Model1.BICDirectoryEntryAccounts">
+          <ConnectorPoint PointX="1.625" PointY="4" />
+          <ConnectorPoint PointX="1.625" PointY="3.3744921874999996" />
+        </AssociationConnector>
+        <AssociationConnector Association="Model1.ParticipantInfoBICDirectoryEntry">
+          <ConnectorPoint PointX="3.375" PointY="2.797587890625" />
+          <ConnectorPoint PointX="3.375" PointY="4.8939925130208328" />
+          <ConnectorPoint PointX="2.375" PointY="4.8939925130208328" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
