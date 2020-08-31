@@ -14,14 +14,16 @@ using System.Collections.Generic;
  * Предполагается, что задача решается на C, но можно и на других языках решать. Например, на C#, JS или ещё чем-то.
  * 
  * Task
- * Have an array of integers length N and number M <= N.
- * Need to write code which check that from 0 to M elements have not zero
- * The result is output Yes or No
+ * Ther is an array of integers length N and number M <= N.
+ * Write a code that checks that there is no zero among from 0 to M elements.
+ * Just output the Yes/No.
  * Limits
- * 1. Don't use logical operators of comparison (==, <, >, !=, <=, >=) 
+ * 1. Don't use logical operators and operators of comparison (==, <, >, !=, <=, >=) 
  * 2. Don't use loops
- * 3. Don't use conditional operator switch, if, ?:, assembler injectcts
- * 4. 
+ * 3. Don't use conditional operators switch, if, ?:, assembler injections
+ * 4. Don't use libraries functions, except to output the result.
+ * 5. Don't use goto, longjmp, exceptions (if language has it)
+ * Sujest that the task is solving on C, but it could be solved by another one. For example on C#, JS, or others.
  */
 namespace UnregularTask
 {

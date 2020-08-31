@@ -1,0 +1,14 @@
+
+UnregularTask/UnitTests/obj/Debug/netcoreapp3.1/UnitTests.AssemblyInfo.cs
+*.cache
+UnregularTask/UnitTests/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs
+UnregularTask/UnitTests/obj/project.assets.json
+UnregularTask/ConsoleApp/obj/Debug/netcoreapp3.1/.NETCoreApp,Version=v3.1.AssemblyAttributes.cs
+UnregularTask/ConsoleApp/obj/Debug/netcoreapp3.1/UnregularTask.AssemblyInfo.cs
+UnregularTask/ConsoleApp/obj/project.assets.json
+UnregularTask/ConsoleApp/obj/UnregularTask.csproj.nuget.dgspec.json
+UnregularTask/ConsoleApp/obj/UnregularTask.csproj.nuget.g.props
+UnregularTask/ConsoleApp/obj/UnregularTask.csproj.nuget.g.targets
+UnregularTask/UnitTests/obj/UnitTests.csproj.nuget.dgspec.json
+UnregularTask/UnitTests/obj/UnitTests.csproj.nuget.g.props
+UnregularTask/UnitTests/obj/UnitTests.csproj.nuget.g.targets
