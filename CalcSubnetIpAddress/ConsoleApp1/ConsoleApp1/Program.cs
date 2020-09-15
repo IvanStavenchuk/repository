@@ -7,8 +7,7 @@ namespace ConsoleApp1
 {
     public class Program
     {
-        //private static List<byte[]> _ipsBytes = new List<byte[]>();
-        private static short ipLength = 4;
+        private static readonly short _ipLength = 4;
  
         static void Main(string[] args)
         {
@@ -20,8 +19,6 @@ namespace ConsoleApp1
         {
             byte[] minIp = new byte[] { 255, 255, 255, 255 };
             byte[] maxIp = new byte[] { 0, 0, 0, 0 };
-            //IPAddress minIp = new IPAddress(new byte[] { 255, 255, 255, 255 });
-            //IPAddress maxIp = new IPAddress(new byte[] { 0, 0, 0, 0 });
             foreach (var arg in args)
             {
                 IPAddress ip;
@@ -30,7 +27,7 @@ namespace ConsoleApp1
                     byte[] ipByte = ip.GetAddressBytes();
                     Console.WriteLine(ip.ToString());
                     // поиск минимального и максимального адреса
-                    for (int i = 0; i < ipLength; i++)
+                    for (int i = 0; i < _ipLength; i++)
                     {
                         if (minIp[i] > ipByte[i])
                             minIp[i] = ipByte[i];
@@ -40,10 +37,10 @@ namespace ConsoleApp1
                 }
             }
             // вычисление минимального адреса подсети
-            byte[] subnetIp = new byte[ipLength];
-            byte count = 0;
-            int lastOctet = ipLength;
-            for (int i = 0; i < ipLength; i++)
+            byte[] subnetIp = new byte[_ipLength];
+            byte pow = 0;
+            int lastOctet = _ipLength;
+            for (int i = 0; i < _ipLength; i++)
             {
                 lastOctet--;
                 if (maxIp[i] == minIp[i])
@@ -52,19 +49,20 @@ namespace ConsoleApp1
                 }
                 else
                 {
-                    count = 1;
-                    while (!((maxIp[i] - minIp[i]) < Math.Pow(2, count)
-                        && minIp[i] > Math.Pow(2, count) * (Math.Truncate(minIp[i] / Math.Pow(2, count)))
-                        && maxIp[i] < Math.Pow(2, count) * (Math.Truncate(minIp[i] / Math.Pow(2, count))+1)
+                    int twoPowCount = 1;
+                    while (!((maxIp[i] - minIp[i]) < twoPowCount
+                        && minIp[i] > twoPowCount * (minIp[i] / twoPowCount)
+                        && maxIp[i] < twoPowCount * ((minIp[i] / twoPowCount) +1)
                         ))
                     {
-                        count++;
+                        pow++;
+                        twoPowCount <<= 1;
                     }
-                    subnetIp[i] = (byte)(Math.Pow(2, count) * (Math.Truncate(minIp[i] / Math.Pow(2, count))));
+                    subnetIp[i] = (byte)(twoPowCount * (minIp[i] / twoPowCount));
                     break;
                 }
             }
-            return $"{subnetIp[0]}.{subnetIp[1]}.{subnetIp[2]}.{subnetIp[3]}/{ 32 - (count + lastOctet * 8)}";
+            return $"{subnetIp[0]}.{subnetIp[1]}.{subnetIp[2]}.{subnetIp[3]}/{ 32 - (pow + lastOctet * 8)}";
         }
     }
 }
